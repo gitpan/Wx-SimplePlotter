@@ -9,7 +9,7 @@ use Wx::Event qw(EVT_PAINT EVT_SIZE);
 
 our @ISA = qw(Wx::Control);
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our $Default_Colours = [[0, 0, 0], [255, 0, 0], [0, 0, 255], [0, 255, 0]];
 
@@ -131,18 +131,26 @@ sub ScalePoints {
         defined $maxX && defined $maxY;
 
     my $size = $self->GetClientSize();
-    my ($w, $h) = ($size->GetWidth(), $size->GetHeight());
+    my ($w, $h) = ($size->GetWidth() - 1, $size->GetHeight() - 1);
 
     my ($scaleX, $scaleY) = (1, 1);
     
-    $scaleX = $w / ($maxX - $minX);
-    $scaleY = $h / ($maxY - $minY);
+    if ($maxX - $minX != 0) {
+        $scaleX = $w / ($maxX - $minX);
+    } else {
+        $scaleX = 1;
+    }
+    if ($maxY - $minY != 0) {
+        $scaleY = $h / ($maxY - $minY);
+    } else {
+        $scaleY = 1;
+    }
     
     foreach my $p (@{$self->{POINTS}}) {
         push @{$self->{SCALED}},
             [ map { Wx::Point->new(
                   ($_->[0] - $minX) * $scaleX,
-                  ($_->[1] - $minY) * $scaleY) } @$p ]; 
+                  $h - ($_->[1] - $minY) * $scaleY) } @$p ]; 
     }
     
     return $self->{SCALED};

@@ -1,4 +1,4 @@
-Wx/SimplePlotter version 0.01
+Wx/SimplePlotter version 0.02
 =============================
 
 This wxWidgets control plots points (e.g. function results) with different 
