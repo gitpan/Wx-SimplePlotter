@@ -1,5 +1,5 @@
-Wx/SimplePlotter version 0.02
-=============================
+Wx/SimplePlotter
+================
 
 This wxWidgets control plots points (e.g. function results) with different 
 colors. It automatically scales its output according to the control size.
@@ -25,7 +25,7 @@ This module requires wxWidgets and the Wx module.
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2004 Christian Renz <crenz@web42.com>
+Copyright (C) 2004-2005 Christian Renz <crenz@web42.com>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

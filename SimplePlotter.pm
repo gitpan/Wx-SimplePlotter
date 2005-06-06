@@ -9,7 +9,7 @@ use Wx::Event qw(EVT_PAINT EVT_SIZE);
 
 our @ISA = qw(Wx::Control);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 our $Default_Colours = [[0, 0, 0], [255, 0, 0], [0, 0, 255], [0, 255, 0]];
 
@@ -87,7 +87,7 @@ sub SetPoints {
 
     $self->{POINTS} = [ @_ ];
 
-    $self->FindMinMax();
+    $self->_FindMinMax();
     $self->ScalePoints();
 }
 
@@ -101,7 +101,7 @@ Colours are cycled if you use more data sets than colours.
 =cut
 
 sub SetColours {
-    my ($self) = @_;
+    my $self = shift;
     
     if ($#_ > -1) {
         $self->{COLOURS} = [ @_ ];
@@ -159,7 +159,7 @@ sub ScalePoints {
 # Search for minimum and maximum values in the data. Called automatically by 
 # SetPoints
 
-sub FindMinMax {
+sub _FindMinMax {
     my $self = shift;
     
     my ($minX, $minY, $maxX, $maxY) = 
@@ -178,6 +178,12 @@ sub FindMinMax {
     ($self->{MINX}, $self->{MINY}, $self->{MAXX}, $self->{MAXY}) =
         ($minX, $minY, $maxX, $maxY);
 }
+
+=item C<OnPaint>
+
+Paint handler that draws the points.
+
+=cut
 
 sub OnPaint {
     my ($self, $event) = @_;
@@ -200,6 +206,12 @@ sub OnPaint {
     }
 }
 
+=item C<OnSize>
+
+Resizing handler that re-scales the points.
+
+=cut
+
 sub OnSize {
     my $self = shift;
     
@@ -209,6 +221,8 @@ sub OnSize {
 1;
 __END__
 
+=back
+
 =head1 SEE ALSO
 
 L<Wx>
@@ -217,11 +231,11 @@ WxWidgets L<http://wxwidgets.org/>
 
 =head1 AUTHOR
 
-Christian Renz, E<lt>crenz@web42.com<gt>
+Christian Renz, E<lt>crenz @ web42.com<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004 by Christian Renz <crenz@web42.com>
+Copyright 2004-2005 by Christian Renz E<gt>crenz @ web42.comE<lt>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

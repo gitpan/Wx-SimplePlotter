@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx::SimplePlotter.
 
+0.03  June 6th 2005
+    - Added POD tests, extended and fixed POD
+
 0.02  June 27th 2004
     - Fixed a few display bugs
 
